@@ -58,8 +58,7 @@ def load_model_from_gcs(model_path):
     temp_model_file.write(model_file.read())
     temp_model_file.close()
     model_file.close()
-    model = load_model(temp_model_location)
-    return model
+    return load_model(temp_model_location)
 
 
 def curate_data_with_model(data, curation_model):

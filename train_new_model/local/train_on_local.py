@@ -57,7 +57,17 @@ def input_fn():
 
 
 def build_model(model_type):
-    if model_type == 'keras':
+    if model_type == 'estimator':
+        # Build estimator
+        feature_image = tf.feature_column.numeric_column("ximage",
+                                                         shape=(81,81,1),
+                                                         dtype=tf.float32)
+        model = tf.estimator.DNNClassifier(feature_columns=[feature_image],
+                                           hidden_units=[512, 256, 128],
+                                           activation_fn=tf.nn.relu,
+                                           n_classes=2,
+                                           model_dir="C:/SuperUser/CNN_Projects/Model_v2/")
+    elif model_type == 'keras':
         # Build Model
         model = Sequential()
 
@@ -96,16 +106,6 @@ def build_model(model_type):
                   shuffle=False,
                   steps_per_epoch=None)
 
-    elif model_type == 'estimator':
-        # Build estimator
-        feature_image = tf.feature_column.numeric_column("ximage",
-                                                         shape=(81,81,1),
-                                                         dtype=tf.float32)
-        model = tf.estimator.DNNClassifier(feature_columns=[feature_image],
-                                           hidden_units=[512, 256, 128],
-                                           activation_fn=tf.nn.relu,
-                                           n_classes=2,
-                                           model_dir="C:/SuperUser/CNN_Projects/Model_v2/")
     return model
 
 

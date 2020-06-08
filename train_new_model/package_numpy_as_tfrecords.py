@@ -23,8 +23,12 @@ def numpy_to_tfrecords(np_location, records_name):
                 labels = np_labels.flatten()
                 labels = labels.astype(int)
 
-                feature = {}
-                feature['ximage'] = tf.train.Feature(bytes_list=tf.train.BytesList(value=[flat_im]))
+                feature = {
+                    'ximage': tf.train.Feature(
+                        bytes_list=tf.train.BytesList(value=[flat_im])
+                    )
+                }
+
                 feature['ylabel'] = tf.train.Feature(int64_list=tf.train.Int64List(value=labels))
 
                 combined = tf.train.Example(features=tf.train.Features(feature=feature))
